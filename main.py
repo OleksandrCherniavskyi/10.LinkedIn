@@ -29,7 +29,6 @@ driver.get("https://www.linkedin.com/home")
 time.sleep(5)
 driver.refresh()
 time.sleep(5)
-#driver.add_cookie({"name": "foo", "value": "bar"})
 
 driver.implicitly_wait(5)
 
@@ -145,7 +144,7 @@ def collect_company_info():
         return
 
     # Link for your task
-    link_sources = "https://www.linkedin.com/search/results/COMPANIES/?companyHqGeo=%5B%22102974008%22%2C%22104341318%22%2C%22106137034%22%2C%22101464403%22%2C%22104738515%22%2C%22103819153%22%2C%22100456013%22%2C%22103119917%22%2C%22104514075%22%2C%22105333783%22%2C%22101855366%22%2C%22106693272%22%2C%22101452733%22%2C%22100288700%22%2C%22100364837%22%2C%22104677530%22%2C%22104508036%22%2C%22105117694%22%2C%22100565514%22%2C%22102890719%22%2C%22106670623%22%2C%22101165590%22%2C%22101282230%22%2C%22102264497%22%2C%22103350119%22%2C%22105015875%22%2C%22105072130%22%2C%22105646813%22%5D&companySize=%5B%22I%22%5D&industryCompanyVertical=%5B%221862%22%5D&origin=FACETED_SEARCH&sid=rLp"
+    #link_sources = "https://www.linkedin.com/search/results/COMPANIES/?companyHqGeo=%5B%22102974008%22%2C%22104341318%22%2C%22106137034%22%2C%22101464403%22%2C%22104738515%22%2C%22103819153%22%2C%22100456013%22%2C%22103119917%22%2C%22104514075%22%2C%22105333783%22%2C%22101855366%22%2C%22106693272%22%2C%22101452733%22%2C%22100288700%22%2C%22100364837%22%2C%22104677530%22%2C%22104508036%22%2C%22105117694%22%2C%22100565514%22%2C%22102890719%22%2C%22106670623%22%2C%22101165590%22%2C%22101282230%22%2C%22102264497%22%2C%22103350119%22%2C%22105015875%22%2C%22105072130%22%2C%22105646813%22%5D&companySize=%5B%22I%22%5D&industryCompanyVertical=%5B%221862%22%5D&origin=FACETED_SEARCH&sid=rLp"
 
 
     driver.get(link_sources)
@@ -166,7 +165,7 @@ def collect_company_info():
 
     #linkedin_company_link
     for link in linkedin_company_link:
-        driver.get(link)
+        driver.get(link + 'about/')
         time.sleep(5)
         driver.implicitly_wait(5)
 
@@ -183,8 +182,8 @@ def collect_company_info():
         try:
             driver.implicitly_wait(5)
             time.sleep(3)
-            i_industry = driver.find_element(By.CSS_SELECTOR, 'div.inline-block.div.org-top-card-summary-info-list__info-item')
-            i_industry = i_industry.text
+            i_industry = driver.find_element(By.XPATH, '/html/body/div[5]/div[3]/div/div[2]/div/div[2]/main/div[2]/div/div/div[1]/section/dl/dd[1]')
+            i_industry = i_industry.text.strip()
             industry.append(i_industry)
         except selenium.common.exceptions.NoSuchElementException:
             i_industry = '-'
@@ -205,7 +204,8 @@ def collect_company_info():
         try:
             driver.implicitly_wait(5)
             time.sleep(3)
-            i_company_size = driver.find_element(By.CSS_SELECTOR, 'dd.t-black--light.text-body-medium.mb1')
+            i_company_size = driver.find_element(By.XPATH, '/html/body/div[5]/div[3]/div/div[2]/div/div[2]/main/div[2]/div/div/div[1]/section/dl/dd[2]')
+
             i_company_size = i_company_size.text.strip()
             company_size.append(i_company_size)
         except selenium.common.exceptions.NoSuchElementException:
@@ -215,7 +215,7 @@ def collect_company_info():
         try:
             driver.implicitly_wait(5)
             time.sleep(3)
-            i_hq = driver.find_element(By.CSS_SELECTOR, 'div.inline-block.div.org-top-card-summary-info-list__info-item')
+            i_hq = driver.find_element(By.XPATH, '/html/body/div[5]/div[3]/div/div[2]/div/div[2]/main/div[2]/div/div/div[1]/section/dl/dd[3]')
             i_hq = i_hq.text.strip()
             hq.append(i_hq)
         except selenium.common.exceptions.NoSuchElementException:
