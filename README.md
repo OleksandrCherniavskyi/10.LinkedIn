@@ -1,6 +1,8 @@
 # 10.LinkedIn
 
 Project content 2 functions 
+![image](https://github.com/OleksandrCherniavskyi/10.LinkedIn/assets/105165580/363b0094-1a27-4bd7-8e71-e80179ff7772)
+
 1. Collect data for applicants from LinkedIn page, just put link for page add in DB
 
 2. Collect data about firms you need adjust filters on linkedin pages, copy generate link in terminal, next program collect needed data in DB.
